@@ -93,7 +93,6 @@ async def video_score(
     summary = (
         f"已完成本地 demo 评分。视频大小约 {size_mb:.2f} MB，"
         f"时长 {duration_sec if duration_sec is not None else '未知'} 秒，"
-        f"当前返回的是可复现的 mock 分析结果，适合联调上传、评分和问答流程。"
     )
 
     return DemoVideoScoreResponse(
