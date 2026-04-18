@@ -1,0 +1,3 @@
+[console_scripts]
+shootcoach-api = apps.api.main:main
+shootcoach-train = models_dl.train:main

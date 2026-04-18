@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShootCoach Demo</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">localhost demo</p>
+        <h1>视频评分、智能问答、知识库管理</h1>
+        <p class="subcopy">现在这个页面既能做本地视频交互测试，也能直接管理 RAG 知识库文档，方便你边调接口边验证问答效果。</p>
+      </div>
+      <div class="hero-card">
+        <p class="hero-label">当前状态</p>
+        <div id="statusBadge" class="badge">等待操作</div>
+        <p class="hero-tip">建议顺序：先检查知识库文档是否在列表里，再进行问答测试；如果改了文档内容，可以点一次“重建索引”。</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head">
+          <h2>1. 上传视频</h2>
+          <p>选择本地视频后可直接预览，再触发 demo 评分。</p>
+        </div>
+        <label class="upload-box" for="videoInput">
+          <input id="videoInput" type="file" accept="video/*">
+          <span>点击选择视频文件</span>
+          <small>支持 mp4、mov、avi、mkv、webm、m4v</small>
+        </label>
+        <div class="video-wrap">
+          <video id="videoPreview" controls playsinline></video>
+        </div>
+        <div class="meta" id="videoMeta">尚未选择视频</div>
+        <button id="scoreButton" class="primary" disabled>上传并评分</button>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>2. 评分结果</h2>
+          <p>评分结果会作为上下文继续提供给智能问答。</p>
+        </div>
+        <div id="scoreEmpty" class="empty">上传视频后，这里会展示分数、等级和简要建议。</div>
+        <div id="scoreResult" class="score-card hidden">
+          <div class="score-top">
+            <div>
+              <p class="muted">综合评分</p>
+              <div class="score-value"><span id="scoreValue">0</span><small>/100</small></div>
+            </div>
+            <div>
+              <p class="muted">等级</p>
+              <div id="gradeValue" class="grade-chip">-</div>
+            </div>
+          </div>
+          <p id="scoreSummary" class="summary"></p>
+          <div class="two-col">
+            <div>
+              <h3>亮点</h3>
+              <ul id="strengthList"></ul>
+            </div>
+            <div>
+              <h3>优化建议</h3>
+              <ul id="improvementList"></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>3. 智能问答</h2>
+        <p>这里会结合评分结果和知识库内容进行回答。</p>
+      </div>
+      <div id="chatLog" class="chat-log">
+        <div class="chat-item bot">你好，我会结合当前视频评分和知识库内容给出简洁建议。你可以先上传视频，也可以直接测试知识问答。</div>
+      </div>
+      <div class="chat-form">
+        <textarea id="chatInput" rows="3" placeholder="输入你的问题，比如：投篮训练时肘部应该注意什么？"></textarea>
+        <button id="chatButton" class="primary">发送问题</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head panel-head-row">
+        <div>
+          <h2>4. 知识库管理</h2>
+          <p>可直接查看、添加、删除文档，并手动重建索引。</p>
+        </div>
+        <button id="reindexButton" class="secondary">重建索引</button>
+      </div>
+
+      <div class="kb-grid">
+        <div class="kb-col">
+          <h3>新增文档</h3>
+          <div class="form-stack">
+            <input id="kbTitle" type="text" placeholder="文档标题，例如：elbow_alignment">
+            <input id="kbFilename" type="text" placeholder="文件名，可选，例如：elbow_alignment.txt">
+            <textarea id="kbContent" rows="8" placeholder="输入知识内容。建议一个主题一份文档，按自然段组织。"></textarea>
+            <button id="kbCreateButton" class="primary">保存到知识库</button>
+          </div>
+        </div>
+
+        <div class="kb-col">
+          <div class="kb-list-head">
+            <h3>已入库文档</h3>
+            <button id="kbRefreshButton" class="ghost">刷新列表</button>
+          </div>
+          <div id="kbSummary" class="meta">正在加载知识库列表</div>
+          <div id="kbList" class="kb-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

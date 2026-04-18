@@ -1,0 +1,4 @@
+redis_url: redis://localhost:6379/0
+stm_window_size: 12
+stm_ttl_seconds: 86400
+ltm_sqlite_path: data/ltm.sqlite3

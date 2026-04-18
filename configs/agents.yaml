@@ -1,0 +1,13 @@
+default_mode: baseline
+
+llm:
+  base_url:
+  api_key:
+  model: gpt-4.1-mini
+
+upgraded:
+  enabled: true
+  roles:
+    - router
+    - planner
+    - critic

@@ -1,0 +1,10 @@
+docs_dir: data/knowledge
+kb_sqlite_path: data/kb.sqlite3
+chunk_size: 500
+chunk_overlap: 80
+min_score: 0.025
+max_hits_per_doc: 1
+snippet_chars: 240
+embed_base_url:
+embed_api_key:
+embed_model: text-embedding-3-small

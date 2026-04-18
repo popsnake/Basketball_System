@@ -1,0 +1,33 @@
+# 训练与推理共用；修改后需重新训练或确认与已导出权重一致
+
+sequence:
+  target_frames: 31
+  feature_dim: 75
+  # 与历史 train.py 一致：展平后的坐标除以该系数再输入网络
+  normalize_divisor: 1500.0
+
+model:
+  lstm_units_1: 128
+  lstm_units_2: 32
+  dense_units: 64
+  dropout: 0.5
+  l2: 0.01
+  num_classes: 5
+
+training:
+  optimizer: adam
+  loss: sparse_categorical_crossentropy
+  batch_size: 15
+  epochs: 250
+  # 开发时可改小以快速冒烟
+  epochs_dev: 5
+
+paths:
+  # 相对仓库根目录
+  weights_h5: model_data/model.h5
+  export_dir: model_data
+
+# 规则指导：关键帧处肘角（度）与 readme 示例一致的量级
+coaching:
+  ideal_elbow_deg: 42.0
+  elbow_tolerance_deg: 10.0
